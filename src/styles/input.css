@@ -7,6 +7,10 @@
 
 @layer base {
 
+    h1, h2, h3, h4, h5, h6{
+        @apply text-black;
+    }
+
   h1 {
     @apply text-[clamp(1.75rem,1.1578947368421053rem+2.9605263157894735vw,4rem)] font-bold;
   }
@@ -29,7 +33,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply text-black bg-white overflow-x-hidden font-manrope;
+    @apply text-custom-black bg-white overflow-x-hidden font-manrope font-medium;
   }
   p,
   span,
@@ -37,9 +41,10 @@
     @apply text-[14px];
     
   }
-  p,b,span {
-    @apply text-[rgba(0,0,0,0.7)];
+  a{
+    @apply hover:text-custom-green
   }
+
   /* input,
   textarea {
     @apply w-full outline-none bg-white text-black p-3;

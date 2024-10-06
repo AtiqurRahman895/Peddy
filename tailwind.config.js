@@ -23,6 +23,7 @@ module.exports = {
       colors: {
         'custom-green': '#0E7A81',
         'custom-half-green': 'rgba(14, 121, 129, 0.2)',
+        'custom-black': 'rgba(19,19,19,0.7)',
         'white':'#ffffff',
         'custom-ash': '#f1f1f1',
       },
