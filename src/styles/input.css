@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+/* src/styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  h1 {
+    @apply text-[clamp(1.75rem,1.1578947368421053rem+2.9605263157894735vw,4rem)] font-bold;
+  }
+  h2 {
+    @apply text-[clamp(1.5rem,1.236842105263158rem+1.3157894736842104vw,2.5rem)] font-bold;
+  }
+  h3 {
+    @apply text-[clamp(1.75rem,1.6842105263157894rem+0.3289473684210526vw,2rem)] font-bold;
+  }
+  h4 {
+    @apply text-[1.5rem] font-bold;
+  }
+  h5 {
+    @apply text-[1.25rem] font-bold;
+  }
+  h6 {
+    @apply text-[1rem] font-semibold;
+  }
+  * {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply text-black bg-white overflow-x-hidden font-manrope;
+  }
+  p,
+  span,
+  a,b {
+    @apply text-[14px];
+    
+  }
+  p,b,span {
+    @apply text-[rgba(0,0,0,0.7)];
+  }
+  /* input,
+  textarea {
+    @apply w-full outline-none bg-white text-black p-3;
+  }
+  input {
+    @apply rounded-full;
+  }
+  textarea {
+    @apply rounded-xl;
+  }
+  input,
+  textarea {
+    @apply focus:invalid:border-2 focus:invalid:border-rose-300 focus:valid:border-2 focus:valid:border-custom-green;
+  } */
+}
+@layer utilities {
+  .headerSectionAnimation {
+    background: #ffffffaf;
+    backdrop-filter: blur(20px);
+  }
+  .primaryButton{
+    @apply px-6 py-2 bg-custom-green rounded-md duration-500 hover:bg-custom-ash hover:border hover:border-[rgba(0,0,0,0.3)]
+  }
+  /* .tabButton{
+    @apply px-7 py-2 rounded-md duration-500 bg-transparent hover:bg-custom-ash border border-[rgba(0,0,0,0.3)]
+  }
+  .tabButton:has(input:checked){
+    @apply bg-custom-green border-none
+  } */
+
+}
