@@ -1396,6 +1396,9 @@ a:hover{
 .mt-3{
   margin-top: 0.75rem;
 }
+.mt-8{
+  margin-top: 2rem;
+}
 .flex{
   display: flex;
 }
@@ -1420,6 +1423,12 @@ a:hover{
 .w-full{
   width: 100%;
 }
+.max-w-full{
+  max-width: 100%;
+}
+.flex-col{
+  flex-direction: column;
+}
 .items-center{
   align-items: center;
 }
@@ -1428,6 +1437,9 @@ a:hover{
 }
 .gap-2{
   gap: 0.5rem;
+}
+.gap-4{
+  gap: 1rem;
 }
 .rounded-box{
   border-radius: var(--rounded-box, 1rem);
@@ -1453,12 +1465,18 @@ a:hover{
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
+.text-center{
+  text-align: center;
+}
 .text-\[2\.25rem\]{
   font-size: 2.25rem;
 }
 .text-xl{
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.text-\[clamp\(1rem\2c 0\.9285714285714286rem\+0\.35714285714285715vw\2c 1\.25rem\)\]{
+  font-size: clamp(1rem,0.9285714285714286rem + 0.35714285714285715vw,1.25rem);
 }
 .text-black{
   --tw-text-opacity: 1;
@@ -1473,6 +1491,26 @@ a:hover{
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.primaryButton{
+  border-radius: 0.375rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(14 122 129 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 122 129 / var(--tw-bg-opacity));
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  font-size: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  transition-duration: 500ms;
+}
+.primaryButton:hover{
+  background-color: rgba(14, 121, 129, 0.2);
+}
 /* .tabButton{
     @apply px-7 py-2 rounded-md duration-500 bg-transparent hover:bg-custom-ash border border-[rgba(0,0,0,0.3)]
   }
@@ -1483,6 +1521,14 @@ a:hover{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+@media (min-width: 640px){
+  .sm\:inline-block{
+    display: inline-block;
+  }
+  .sm\:w-\[70\%\]{
+    width: 70%;
+  }
+}
 @media (min-width: 768px){
   .md\:flex{
     display: flex;
@@ -1492,5 +1538,10 @@ a:hover{
   }
   .md\:text-\[26px\]{
     font-size: 26px;
+  }
+}
+@media (min-width: 1280px){
+  .xl\:w-\[50\%\]{
+    width: 50%;
   }
 }
