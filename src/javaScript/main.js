@@ -1,3 +1,17 @@
+// change the background of nav bar
+
+window.addEventListener(`scroll`, () => {
+    if (window.scrollY >= 20) {
+      document
+        .querySelector(`.headerSection`)
+        .classList.add(`headerSectionAnimation`);
+    } else {
+      document
+        .querySelector(`.headerSection`)
+        .classList.remove(`headerSectionAnimation`);
+    }
+  });
+
 // category Tabs
 
 let tabsWrappers1= document.querySelector(`.tabsWrapper1`)
@@ -17,7 +31,7 @@ allCategories()
 const displayCategories=(data)=>{
     data.forEach((eachCategory)=>{
         let tabContent = `
-            <div onclick="categoryPets('${eachCategory.category}')" class="tabButton h-full flex items-center justify-center gap-2">
+            <div onclick="categoryPets('${eachCategory.category}')" class="categoryTabButton ${eachCategory.category}TabButton h-full flex items-center justify-center gap-2">
                 <img src="${eachCategory.category_icon}" alt="All" class="w-[2rem]">
                 <h6>${eachCategory.category}</h6>
             </div>
@@ -66,24 +80,24 @@ const displayPets=(data)=>{
                                 <h6>${eachPet.pet_name}</h6>
                                 <div class="flex items-center gap-3">
                                     <i class="fa-sharp fa-light fa-paw-simple text-custom-green"></i>
-                                    <p>Breed: ${eachPet.breed}</p>
+                                    <p>Breed: ${eachPet.breed?eachPet.breed:'Not available!'}</p>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <i class="fa-light fa-calendar-days text-custom-green"></i>
-                                    <p>Birth: ${eachPet.date_of_birth}</p>
+                                    <p>Birth: ${eachPet.date_of_birth?eachPet.date_of_birth:'Not available!'}</p>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     <i class="fa-light fa-venus-mars text-custom-green"></i>
-                                    <p>Gender: ${eachPet.gender}</p>
+                                    <p>Gender: ${eachPet.gender?eachPet.gender:'Not available!'}</p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <i class="fa-sharp fa-light fa-circle-dollar text-custom-green"></i>
-                                    <p>Price : ${eachPet.price}$</p>
+                                    <p>Price : ${eachPet.price?eachPet.price:'Not available!'}$</p>
                                 </div>
                             </div>
                             <div class="flex justify-between gap-1 pt-3 border-t">
                                 <button type="button" onclick='clickLikeButton(this,${eachPet.petId})' class="cardButton likeButton p-2"><i class="fa-light fa-thumbs-up"></i></button>
-                                <button type="button" id="adoptButton${eachPet.petId}" onclick='clickAdoptButton(${eachPet.petId})' class="cardButton p-2">Adopt</button>
+                                <button type="button" onclick='clickAdoptButton(${eachPet.petId})' class="cardButton adoptButton${eachPet.petId} p-2">Adopt</button>
                                 <button type="button" onclick='clickDetailsButton(${eachPet.petId})' class="cardButton p-2">Details</button>
                             </div>
                         </div>
@@ -102,13 +116,27 @@ const categoryPets= async(category)=>{
     try {
         let res=await fetch(`https://openapi.programming-hero.com/api/peddy/category/${category}`)
         let data=await res.json()
-        displayCategoryPets(data.data)
+        displayCategoryPets(data.data,category)
     } catch (error) {
         console.log(error)
     }
 }
 // display pets to UI
-const displayCategoryPets=(data)=>{
+const displayCategoryPets=(data,category)=>{
+
+    // Change active category Button 
+
+    let categoryTabButton=document.querySelectorAll(`.categoryTabButton`)
+    categoryTabButton.forEach((eachCategoryTabButton)=>{
+        eachCategoryTabButton.classList.toggle(`activeCategoryTabButton`,false)
+    })
+    let specificCategoryTabButtons= document.querySelectorAll(`.${category}TabButton`)
+    specificCategoryTabButtons.forEach((eachSpecificCategoryTabButton)=>{
+        eachSpecificCategoryTabButton.classList.add('activeCategoryTabButton')
+    })
+
+    // loading for 2s
+
     petsWrapper.innerHTML=``
     petsWrapper.classList.toggle('sm:grid-cols-2',false)
     petsWrapper.classList.toggle('xl:grid-cols-3',false)
@@ -117,6 +145,9 @@ const displayCategoryPets=(data)=>{
               <span class="loading loading-infinity loading-lg"></span>
             </div>`
     setTimeout(()=>{
+
+        // show category data if found
+
         petsWrapper.innerHTML=``
         !data.length?notAvailable(false):data.forEach((eachPet)=>{
             let pets= document.createElement(`div`)
@@ -128,24 +159,24 @@ const displayCategoryPets=(data)=>{
                                 <h6>${eachPet.pet_name}</h6>
                                 <div class="flex items-center gap-3">
                                     <i class="fa-sharp fa-light fa-paw-simple text-custom-green"></i>
-                                    <p>Breed: ${eachPet.breed}</p>
+                                    <p>Breed: ${eachPet.breed?eachPet.breed:'Not available!'}</p>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <i class="fa-light fa-calendar-days text-custom-green"></i>
-                                    <p>Birth: ${eachPet.date_of_birth}</p>
+                                    <p>Birth: ${eachPet.date_of_birth?eachPet.date_of_birth:'Not available!'}</p>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     <i class="fa-light fa-venus-mars text-custom-green"></i>
-                                    <p>Gender: ${eachPet.gender}</p>
+                                    <p>Gender: ${eachPet.gender?eachPet.gender:'Not available!'}</p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <i class="fa-sharp fa-light fa-circle-dollar text-custom-green"></i>
-                                    <p>Price : ${eachPet.price}$</p>
+                                    <p>Price : ${eachPet.price?eachPet.price:'Not available!'}$</p>
                                 </div>
                             </div>
                             <div class="flex justify-between gap-1 pt-3 border-t">
                                 <button type="button" onclick='clickLikeButton(this,${eachPet.petId})' class="cardButton likeButton p-2"><i class="fa-light fa-thumbs-up"></i></button>
-                                <button type="button" id="adoptButton${eachPet.petId}" onclick='clickAdoptButton(${eachPet.petId})' class="cardButton p-2">Adopt</button>
+                                <button type="button" onclick='clickAdoptButton(${eachPet.petId})' class="cardButton adoptButton${eachPet.petId} p-2">Adopt</button>
                                 <button type="button" onclick='clickDetailsButton(${eachPet.petId})' class="cardButton p-2">Details</button>
                             </div>
                         </div>
@@ -197,7 +228,7 @@ const displayLikedPet=(pet)=>{
 
         let likedPet= document.createElement(`div`)
         likedPet.id=`pet${pet.petId}`
-        likedPet.innerHTML=`<img src="${pet.image}" alt="${pet.pet_name}" class="w-fit rounded-md hover:shadow-md">`
+        likedPet.innerHTML=`<img src="${pet.image}" onclick='clickDetailsButton(${pet.petId})' alt="${pet.pet_name}" class="w-fit rounded-md hover:shadow-md">`
         likedPetsWrapper.append(likedPet)
     
 }
@@ -218,40 +249,43 @@ let clickLikeButton=(e,petId)=>{
 let detailsModalWrapper= document.querySelector(`.detailsModalWrapper`)
 
 const displayDetailsModal=(pet)=>{
-
+    let adoptButton= document.querySelector(`.adoptButton${pet.petId}`)
 
         detailsModalWrapper.innerHTML=`              
             <dialog id="detailsModal" class="modal modal-middle bg-[rgba(0,0,0,0.40)]">
         <div class="modal-box bg-white flex flex-col gap-3">
           <img src="${pet.image}" alt="Pet Image" class="">
-          <h5 class="">${pet.pet_name}</h5>
+          <h5 class="">${pet.pet_name?pet.pet_name:'Not available!'}</h5>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div class="flex items-center gap-3">
               <i class="fa-sharp fa-light fa-paw-simple text-custom-green"></i>
-              <p>Breed: ${pet.breed}</p>
+              <p>Breed: ${pet.breed?pet.breed:'Not available!'}</p>
             </div>
             <div class="flex items-center gap-3">
               <i class="fa-light fa-calendar-days text-custom-green"></i>
-              <p>Birth: ${pet.date_of_birth}</p>
+              <p>Birth: ${pet.date_of_birth?pet.date_of_birth:'Not available!'}</p>
             </div>
             <div class="flex items-center gap-1">
               <i class="fa-light fa-venus-mars text-custom-green"></i>
-              <p>Gender: ${pet.gender}</p>
+              <p>Gender: ${pet.gender?pet.gender:'Not available!'}</p>
             </div>
             <div class="flex items-center gap-2">
               <i class="fa-sharp fa-light fa-circle-dollar text-custom-green"></i>
-              <p>Price : ${pet.price}$</p>
+              <p>Price : ${pet.price?pet.price:'Not available!'}$</p>
             </div>
             <div class="flex items-center gap-2">
               <i class="fa-light fa-syringe text-custom-green"></i>
-              <p>Vaccinated status: ${pet.vaccinated_status}</p>
+              <p>Vaccinated status: ${pet.vaccinated_status?pet.vaccinated_status:'Not available!'}</p>
             </div>
           </div>
   
           <div class="border-t pt-3 flex flex-col gap-3">
             <b class="text-black">Details Information</b>
-            <p>${pet.pet_details}</p>
+            <p>${pet.pet_details?pet.pet_details:'Not available!'}</p>
           </div>
+
+          <button type="button" onclick='clickAdoptButton(${pet.petId})' class="cardButton  adoptButton${pet.petId} ${adoptButton.innerText=='Adopted'?'activeCardButton':''} py-2.5" ${adoptButton.innerText=='Adopted'?"disabled":""}>${adoptButton.innerText=='Adopted'?"Adopted":"Adopt"}</button>
+
             <form method="dialog" class="w-full">
               <button class="modalButton  w-full">Close</button>
             </form>
@@ -259,11 +293,8 @@ const displayDetailsModal=(pet)=>{
         </div>
             </dialog>
         `
-        console.log("ok1")
 
     document.getElementById(`detailsModal`).open='true'
-    console.log("ok2")
-
     
 }
 
@@ -298,10 +329,9 @@ const displayAdoptModal=(pet)=>{
             
               if(counter<0){
                 clearInterval(adoptCounter)
-                document.getElementById(`adoptModal`).open=''    
-                document.getElementById(`adoptButton${pet.petId}`).disabled="disabled"
-                document.getElementById(`adoptButton${pet.petId}`).classList.add(`activeCardButton`)
-                document.getElementById(`adoptButton${pet.petId}`).innerText=`Adopted`
+                document.getElementById(`adoptModal`).open='' 
+                disableAdoptButton(true,pet.petId)
+
               }else{
                 document.getElementById(`adoptModal`).open='true' 
               }
@@ -311,4 +341,16 @@ const displayAdoptModal=(pet)=>{
 
 let clickAdoptButton=(petId)=>{
     petDetailsById(petId,displayAdoptModal)
+}
+
+// disable adopt Button
+let disableAdoptButton=(disable,petId)=>{
+    if(disable){
+        let adoptButtons= document.querySelectorAll(`.adoptButton${petId}`)
+        adoptButtons.forEach((eachAdoptButton)=>{
+            eachAdoptButton.disabled="disabled"
+            eachAdoptButton.classList.add(`activeCardButton`)
+            eachAdoptButton.innerText=`Adopted`
+        })
+    }else null
 }

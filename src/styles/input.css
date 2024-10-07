@@ -45,20 +45,14 @@
     @apply hover:text-custom-green
   }
 
-  /* input,
+  input,
   textarea {
-    @apply w-full outline-none bg-white text-black p-3;
-  }
-  input {
-    @apply rounded-full;
-  }
-  textarea {
-    @apply rounded-xl;
+    @apply w-full outline-none bg-[rgba(255,255,255,0.1)] text-inherit p-3 rounded-md;
   }
   input,
   textarea {
     @apply focus:invalid:border-2 focus:invalid:border-rose-300 focus:valid:border-2 focus:valid:border-custom-green;
-  } */
+  }
 }
 @layer utilities {
   .headerSectionAnimation {
@@ -68,14 +62,14 @@
   .primaryButton{
     @apply px-6 py-2.5 bg-custom-green text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-half-green 
   }
-  .tabButton{
+  .categoryTabButton{
     @apply px-7 py-2.5 rounded-md duration-500 bg-transparent hover:shadow-md border border-custom-half-green
   }
-  .activeTabButton{
+  .activeCategoryTabButton{
     @apply bg-custom-half-green border-custom-green rounded-full
   }
   .cardButton{
-    @apply px-4 p-1.5 text-custom-green rounded-md duration-500 bg-transparent hover:shadow-md border border-custom-half-green
+    @apply px-4 text-custom-green rounded-md duration-500 bg-transparent hover:shadow-md border border-custom-half-green
 
   }
   .activeCardButton{
@@ -83,7 +77,36 @@
 
   }
   .modalButton{
-    @apply px-6 py-2.5 bg-custom-half-green text-custom-green hover:text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-green 
+    @apply py-2.5 bg-custom-half-green text-custom-green hover:text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-green 
+  }
+
+
+  .footerCopyRights a {
+    animation-name: glowMyPortfolioLink;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.28, -0.08, 0.61, 1.04);
+  }
+  
+  @keyframes glowMyPortfolioLink {
+    
+    0% {
+      color: #11959e;
+    }
+  
+    25% {
+      color:  #14b9c5;
+    }
+    50% {
+      color:  #11b1bc;
+    }
+    75% {
+      color:  #0fa0aa;
+    }
+    100% {
+      @apply text-[#0E7A81]
+    }
   }
 
 
