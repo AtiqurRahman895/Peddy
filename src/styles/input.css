@@ -66,13 +66,25 @@
     backdrop-filter: blur(20px);
   }
   .primaryButton{
-    @apply px-6 py-2.5 bg-custom-green text-white text-[1rem] font-bold border-2 border-custom-green rounded-md duration-500 hover:bg-custom-half-green 
+    @apply px-6 py-2.5 bg-custom-green text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-half-green 
   }
-  /* .tabButton{
-    @apply px-7 py-2 rounded-md duration-500 bg-transparent hover:bg-custom-ash border border-[rgba(0,0,0,0.3)]
+  .tabButton{
+    @apply px-7 py-2.5 rounded-md duration-500 bg-transparent hover:shadow-md border border-custom-half-green
   }
-  .tabButton:has(input:checked){
-    @apply bg-custom-green border-none
-  } */
+  .activeTabButton{
+    @apply bg-custom-half-green border-custom-green rounded-full
+  }
+  .cardButton{
+    @apply px-4 p-1.5 text-custom-green rounded-md duration-500 bg-transparent hover:shadow-md border border-custom-half-green
+
+  }
+  .activeCardButton{
+    @apply text-custom-green bg-custom-half-green border-custom-green
+
+  }
+  .modalButton{
+    @apply px-6 py-2.5 bg-custom-half-green text-custom-green hover:text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-green 
+  }
+
 
 }
