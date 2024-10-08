@@ -30,6 +30,7 @@ allCategories()
 // display Categories to UI
 const displayCategories=(data)=>{
     data.forEach((eachCategory)=>{
+        
         let tabContent = `
             <div onclick="categoryPets('${eachCategory.category}')" class="categoryTabButton ${eachCategory.category}TabButton h-full flex items-center justify-center gap-2">
                 <img src="${eachCategory.category_icon}" alt="All" class="w-[2rem]">
@@ -52,11 +53,17 @@ const displayCategories=(data)=>{
 
 let petsWrapper= document.querySelector(`.petsWrapper`)
 // // Fetch All Pets 
-const allPets= async()=>{
+const allPets= async(sort=false)=>{
     try {
         let res=await fetch(`https://openapi.programming-hero.com/api/peddy/pets`)
         let data=await res.json()
-        displayPets(data.pets)
+        if(sort){
+            data.pets.sort((a,b)=>b.price-a.price)
+            displayPets(data.pets)
+
+        }else{
+            displayPets(data.pets)
+        }
     } catch (error) {
         console.log(error)
     }
@@ -74,7 +81,7 @@ const displayPets=(data)=>{
             notAvailable()
             let pets= document.createElement(`div`)
             pets.innerHTML=`
-                        <div class="border border-custom-ash rounded-md p-3 flex flex-col gap-3 h-fit">
+                        <div class="border rounded-md p-3 flex flex-col gap-3 h-fit">
                             <img src="${eachPet.image}" alt="" class="rounded-md">
                             <div class="flex flex-col gap-2">
                                 <h6>${eachPet.pet_name}</h6>
@@ -92,7 +99,7 @@ const displayPets=(data)=>{
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <i class="fa-sharp fa-light fa-circle-dollar text-custom-green"></i>
-                                    <p>Price : ${eachPet.price?eachPet.price:'Not available!'}$</p>
+                                    <p>Price : ${eachPet.price?eachPet.price:'Not available'}$</p>
                                 </div>
                             </div>
                             <div class="flex justify-between gap-1 pt-3 border-t">
@@ -116,7 +123,16 @@ const categoryPets= async(category)=>{
     try {
         let res=await fetch(`https://openapi.programming-hero.com/api/peddy/category/${category}`)
         let data=await res.json()
-        displayCategoryPets(data.data,category)
+
+        if(document.querySelector(`.sortByPriceButton`).classList.contains(`activeSortButton`)){
+            data.data.sort((a,b)=>b.price-a.price)
+            displayCategoryPets(data.data,category)
+
+        }else{
+            displayCategoryPets(data.data,category)
+        }
+
+        // displayCategoryPets(data.data,category)
     } catch (error) {
         console.log(error)
     }
@@ -153,7 +169,7 @@ const displayCategoryPets=(data,category)=>{
             let pets= document.createElement(`div`)
             notAvailable()
             pets.innerHTML=`
-                        <div class="border border-custom-ash rounded-md p-3 flex flex-col gap-3 h-fit">
+                        <div class="border rounded-md p-3 flex flex-col gap-3 h-fit">
                             <img src="${eachPet.image}" alt="" class="rounded-md">
                             <div class="flex flex-col gap-2">
                                 <h6>${eachPet.pet_name}</h6>
@@ -171,7 +187,7 @@ const displayCategoryPets=(data,category)=>{
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <i class="fa-sharp fa-light fa-circle-dollar text-custom-green"></i>
-                                    <p>Price : ${eachPet.price?eachPet.price:'Not available!'}$</p>
+                                    <p>Price : ${eachPet.price?eachPet.price:'Not available'}$</p>
                                 </div>
                             </div>
                             <div class="flex justify-between gap-1 pt-3 border-t">
@@ -253,7 +269,7 @@ const displayDetailsModal=(pet)=>{
 
         detailsModalWrapper.innerHTML=`              
             <dialog id="detailsModal" class="modal modal-middle bg-[rgba(0,0,0,0.40)]">
-        <div class="modal-box bg-white flex flex-col gap-3">
+        <div class="modal-box bg-white flex flex-col gap-3" style="-ms-overflow-style: none; scrollbar-width: none;">
           <img src="${pet.image}" alt="Pet Image" class="">
           <h5 class="">${pet.pet_name?pet.pet_name:'Not available!'}</h5>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -271,7 +287,7 @@ const displayDetailsModal=(pet)=>{
             </div>
             <div class="flex items-center gap-2">
               <i class="fa-sharp fa-light fa-circle-dollar text-custom-green"></i>
-              <p>Price : ${pet.price?pet.price:'Not available!'}$</p>
+              <p>Price : ${pet.price?pet.price:'Not available'}$</p>
             </div>
             <div class="flex items-center gap-2">
               <i class="fa-light fa-syringe text-custom-green"></i>
@@ -315,7 +331,7 @@ const displayAdoptModal=(pet)=>{
             counter--
             adoptModalWrapper.innerHTML=`              
       <dialog id="adoptModal" class="modal modal-middle sm:modal-middle bg-[rgba(0,0,0,0.40)]">
-        <div class="modal-box bg-white flex flex-col items-center ">
+        <div class="modal-box bg-white flex flex-col items-center" style="-ms-overflow-style: none; scrollbar-width: none;">
 
           <img src="../assets/handshake.svg" alt="Handshake Image" class="w-[10rem]">
           <h3>Congrates</h3>
@@ -354,3 +370,50 @@ let disableAdoptButton=(disable,petId)=>{
         })
     }else null
 }
+
+// To sort pets by price
+
+let sortByPriceButton=document.querySelectorAll(`.sortByPriceButton`)
+
+
+sortByPriceButton.forEach((eachSortByPriceButton)=>{
+    eachSortByPriceButton.addEventListener('click',(e)=>{
+
+        document.querySelectorAll(`.sortByPriceButton`)[0].classList.toggle(`activeSortButton`)
+        document.querySelectorAll(`.sortByPriceButton`)[1].classList.toggle(`activeSortButton`)
+    
+        if(eachSortByPriceButton.classList.contains(`activeSortButton`)){
+    
+            if(document.querySelector(`.activeCategoryTabButton`)){
+                document.querySelector(`.activeCategoryTabButton`).click()
+                console.log("sort1")
+                document.querySelectorAll(`.sortByPriceButton`)[0].innerText='Sorted by price'
+                document.querySelectorAll(`.sortByPriceButton`)[1].innerText='Sorted by price'
+    
+            }else{
+                console.log("sort2")
+                allPets(true)
+                document.querySelectorAll(`.sortByPriceButton`)[0].innerText='Sorted by price'
+                document.querySelectorAll(`.sortByPriceButton`)[1].innerText='Sorted by price'
+            }
+        }else{
+    
+            if(document.querySelector(`.activeCategoryTabButton`)){
+                document.querySelector(`.activeCategoryTabButton`).click()
+                console.log("sort3")
+                document.querySelectorAll(`.sortByPriceButton`)[0].innerText='Sort by price'
+                document.querySelectorAll(`.sortByPriceButton`)[1].innerText='Sort by price'
+    
+            }else{
+                console.log("sort4")
+                allPets(false)
+                document.querySelectorAll(`.sortByPriceButton`)[0].innerText='Sort by price'
+                document.querySelectorAll(`.sortByPriceButton`)[1].innerText='Sort by price'
+            }
+                
+            }
+        
+    })
+})
+
+

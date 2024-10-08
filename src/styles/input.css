@@ -60,7 +60,7 @@
     backdrop-filter: blur(20px);
   }
   .primaryButton{
-    @apply px-6 py-2.5 bg-custom-green text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-half-green 
+    @apply px-6 py-2.5 bg-custom-green text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-half-green hover:text-custom-green
   }
   .categoryTabButton{
     @apply px-7 py-2.5 rounded-md duration-500 bg-transparent hover:shadow-md border border-custom-half-green
@@ -78,6 +78,12 @@
   }
   .modalButton{
     @apply py-2.5 bg-custom-half-green text-custom-green hover:text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:bg-custom-green 
+  }
+  .sortButton{
+    @apply px-6 py-2.5 bg-custom-green text-white text-[1rem] font-bold border border-custom-green rounded-md duration-500 hover:shadow-md cursor-pointer
+  }
+  .activeSortButton{
+    @apply text-custom-green bg-custom-half-green
   }
 
 
