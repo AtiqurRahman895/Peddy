@@ -2335,6 +2335,13 @@ input:invalid:focus,
     color: rgb(14 122 129 / var(--tw-text-opacity));
   }
   }
+.hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 @media (min-width: 640px){
   .sm\:modal-middle{
     place-items: center;

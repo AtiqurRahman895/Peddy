@@ -269,7 +269,7 @@ const displayDetailsModal=(pet)=>{
 
         detailsModalWrapper.innerHTML=`              
             <dialog id="detailsModal" class="modal modal-middle bg-[rgba(0,0,0,0.40)]">
-        <div class="modal-box bg-white flex flex-col gap-3" style="-ms-overflow-style: none; scrollbar-width: none;">
+        <div class="modal-box bg-white flex flex-col gap-3 hide-scrollbar" >
           <img src="${pet.image}" alt="Pet Image" class="">
           <h5 class="">${pet.pet_name?pet.pet_name:'Not available!'}</h5>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -331,7 +331,7 @@ const displayAdoptModal=(pet)=>{
             counter--
             adoptModalWrapper.innerHTML=`              
       <dialog id="adoptModal" class="modal modal-middle sm:modal-middle bg-[rgba(0,0,0,0.40)]">
-        <div class="modal-box bg-white flex flex-col items-center" style="-ms-overflow-style: none; scrollbar-width: none;">
+        <div class="modal-box bg-white flex flex-col items-center hide-scrollbar" >
 
           <img src="../assets/handshake.svg" alt="Handshake Image" class="w-[10rem]">
           <h3>Congrates</h3>
